@@ -1,5 +1,6 @@
 var express = require('express'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    bodyParser = require('body-parser');
 
 var db = mongoose.connect("mongodb://localhost/SongsAPI")
 
@@ -7,9 +8,17 @@ var Song = require('./models/songModel')
 
 var app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
 var SongsRouter = express.Router();
 
 SongsRouter.route('/songs')
+    .post(function (req, res) {
+        var song = new Song(req.body);
+        song.save();
+        res.status(201).send(song);
+    })
     .get(function (req, res) {
         var query = req.query;
         Song.find(query, function (err, songs) {
