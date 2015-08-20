@@ -2,16 +2,16 @@ var express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
 
-var db = mongoose.connect("mongodb://localhost/SongsAPI")
+var db = mongoose.connect("mongodb://localhost/SongsAPI");
 
-var Song = require('./models/songModel')
+var Song = require('./models/songModel');
 
 var app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-var SongsRouter = require('./Routes/songRoutes')(Song)
+var SongsRouter = require('./Routes/songRoutes')(Song);
 
 app.use('/api', SongsRouter);
 
