@@ -68,7 +68,7 @@ var routes = function (Song) {
             if (err) {
                 res.status(500).send(err);
             } else {
-                res.json(req.song);
+                res.status(204).send("Peace out - removed");
             }
         });
     });
