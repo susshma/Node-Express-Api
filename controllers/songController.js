@@ -1,9 +1,15 @@
 var songController = function (Song) {
     var post = function (req, res) {
-        
         var song = new Song(req.body);
-        song.save();
-        res.status(201).send(song);
+
+        if (!req.body.title) {
+            res.status(400);
+            res.send("Title is required");
+        } else {
+            song.save();
+            res.status(201)
+            res.send(song);
+        }
     }
 
     var get = function (req, res) {
